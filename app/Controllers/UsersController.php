@@ -3,9 +3,8 @@
 namespace App\Controllers;
 
 use App\Models\User;
-use App\Models\Connect;
 use App\Models\Model;
-use App\Core\Database;
+
 
 class UsersController extends Controller
 {
