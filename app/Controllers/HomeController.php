@@ -1,13 +1,14 @@
 <?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
-    use App\Models\Model;
+use App\Models\Model;
 
-    class HomeController extends Controller
+class HomeController extends Controller
+{
+    public function index()
     {
-        public function index(){
-        	view('home.index');
-
-        }
+    	return view('Home.index');
     }
+
+}

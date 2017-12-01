@@ -1,0 +1,1 @@
+{"virtualbox":{"/blog":{"guestpath":"/blog","hostpath":"/home/luanle/Blog/Blog_MVC","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/home/luanle/Blog/Blog_MVC","disabled":false,"__vagrantfile":true}}}
