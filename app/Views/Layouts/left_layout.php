@@ -11,9 +11,6 @@
 <div class="collapse navbar-collapse" id="navbarSupportedContent">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link js-scroll-trigger" href="#about">About</a>
-    </li>
-    <li class="nav-item">
       <a class="nav-link js-scroll-trigger" href="users/register">Register</a>
     </li>
     <li class="nav-item">
@@ -22,6 +19,8 @@
     <li class="nav-item">
       <a class="nav-link js-scroll-trigger" href="users/get_user">List All User</a>
     </li>
-
+    <li class="nav-item">
+      <a class="nav-link js-scroll-trigger" href="posts/add_post">About</a>
+    </li>
   </ul>
 </div>
