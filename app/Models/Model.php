@@ -32,7 +32,7 @@
 
       public function find($id)
       {
-          $sql = "SELECT * FROM {$this->table} WHERE {$this->primaryKey}=:{$this->primaryKey}";
+          $sql  = "SELECT * FROM {$this->table} WHERE {$this->primaryKey}=:{$this->primaryKey}";
           $stmt = static::$db->prepare($sql);
           $stmt->execute([$this->primaryKey => $id]);
 
@@ -42,8 +42,8 @@
       public function all($fields = ['*'])
       {
           $fields = implode(',', $fields);
-          $sql = "SELECT {$fields} FROM {$this->table}";
-          $stmt = static::$db->prepare($sql);
+          $sql    = "SELECT {$fields} FROM {$this->table}";
+          $stmt   = static::$db->prepare($sql);
           $stmt->execute();
 
           return $stmt->fetchAll();
