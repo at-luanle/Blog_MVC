@@ -1,3 +1,4 @@
+<?php use App\Core\Session; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,7 +35,7 @@
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
                             <button type="submit" name="login" class="btn btn-primary">Login</button>
-                        </div>
+                            <?php echo (Session::get('error_username')); ?>
                     </div>
                 </form>
             </div>
