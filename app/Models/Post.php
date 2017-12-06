@@ -6,17 +6,24 @@ class Post extends Model
 {
   protected $table = 'posts';
 
-  public function insert ( $title, $description, $datecreate, $user)
+  public function insert ( $title, $description, $date_create, $user)
   {
-    $sql = "INSERT INTO $this->table ( title, description, data_create, user_id)
-    VALUES ( :title, :description, :data_create, :user_id)";
+    $sql  = "INSERT INTO $this->table ( title, description, date_create, user_id)
+    VALUES ( '$title', '$description', '$date_create', $user)";
     $stmt = static::$db->prepare($sql);
-
-    $stmt->bindParam( ":title", $title);
-    $stmt->bindParam( ":description", $description);
-    $stmt->bindParam( ":data_create", $datecreate);
-    $stmt->bindParam( ":user_id", $user);
-
     $stmt->execute();
+
+    $post = $stmt->fetch();
+    return $post;
+  }
+  public function load_page_pagination($from, $amount_one_page)
+  {
+    //select page, display page has limit from to amount need dislpay
+    $sql  = "SELECT * FROM $this->table LIMIT $from, $amount_one_page";
+    $stmt = static::$db->prepare($sql);
+    $stml->execute();
+
+    $posts = $stmt->fetchAll();
+    return $posts;
   }
 }

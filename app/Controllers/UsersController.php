@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\User;
 use App\Models\Model;
+use App\Core\Session;
 
 
 class UsersController extends Controller
@@ -18,13 +19,16 @@ class UsersController extends Controller
     {
       $user = new User();
       $data['users'] = $user->all();
-      return view('Users.list_user', $data);
+      return view('Home.index', $data);
     }
 
-    public function register(){
+    //register user
+    public function register()
+    {
         return view('Users.register');
     }
 
+    //save on database
     public function save_register()
     {
       $fullname = $_POST["fullname"];
@@ -38,11 +42,11 @@ class UsersController extends Controller
       $avata = $file_name;
       $password = $_POST["password"];
 
-      if( isset ($_POST["register"])){
+      if ( isset ($_POST["register"])) {
         $user = new User();
 
-        if( count($user->insert($fullname, $username, $avata, $password ) > 0)) {
-          header("Location: /users/get_user");
+        if ( count($user->insert($fullname, $username, $avata, $password ) > 0)) {
+          header("Location: /home/index");
         }
         else {
           echo "failture";
@@ -50,31 +54,40 @@ class UsersController extends Controller
       }
     }
 
+    //display login page
     public function login()
     {
       return view('Users.login');
     }
 
+    //login a user
     public function save_login()
     {
       $username = $_POST["username"];
       $password = $_POST["password"];
-      if(isset($_POST["login"]))
-      {
-        $user = new User();
-        $loUser = $user->login($username, $password);
-        if(!empty($username) && empty(!$password)){
-          if(count($loUser) > 0)
-          {
-              header("Location: /users/get_user");
+      $user = new User();
+      $login = $user->login($username, $password);
+      if (isset($_POST["login"])) {
+        if (empty($username) && empty($password)) {
+          if ($login) {
+              Session::set('user_name', $username);
+              header("Location: /");
           }
           else {
               header("Location: /users/login");
           }
         }
         else {
-          echo "Enter Value";
+          SESSION::set('error_username', 'enter value');
+          SESSION::set('error_password', 'enter value');
+          header("Location: /users/login");
         }
       }
+    }
+
+    public function logout()
+    {
+      Session::destroy();
+      header("Location: /");
     }
 }

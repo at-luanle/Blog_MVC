@@ -34,7 +34,7 @@
                     <div class="form-group">
                         <label class="control-label col-xs-2">Date</label>
                         <div class="col-xs-10">
-                            <input type="text" name="date" class="form-control" placeholder="Password">
+                            <input type="date" name="date_create" class="form-control" placeholder="Password">
                         </div>
                     </div>
                     <div class="form-group">

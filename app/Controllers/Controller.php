@@ -1,8 +1,8 @@
 <?php
 
-    namespace App\Controllers;
+namespace App\Controllers;
 
-    class Controller
-    {
-        
-    }
+class Controller
+{
+
+}
