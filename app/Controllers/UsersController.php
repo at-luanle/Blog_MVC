@@ -31,25 +31,46 @@ class UsersController extends Controller
     //save on database
     public function save_register()
     {
-      $fullname = $_POST["fullname"];
-      $username = $_POST["username"];
-
-      $file_name = $_FILES['avatar']['name'];
-      $file_tmp =$_FILES['avatar']['tmp_name'];
-      $path_upload = $_SERVER["DOCUMENT_ROOT"].'/img/'.$file_name;
-      move_uploaded_file($file_tmp, $path_upload);
-
-      $avata = $file_name;
-      $password = $_POST["password"];
-
       if ( isset ($_POST["register"])) {
-        $user = new User();
+        $fullname     = $_POST["fullname"];
+        $username     = $_POST["username"];
 
-        if ( count($user->insert($fullname, $username, $avata, $password ) > 0)) {
-          header("Location: /home/index");
+        $file_name    = $_FILES['avatar']['name'];
+        $file_tmp     = $_FILES['avatar']['tmp_name'];
+        $path_upload  = $_SERVER["DOCUMENT_ROOT"].'/img/'.$file_name;
+        move_uploaded_file($file_tmp, $path_upload);
+
+        $avata        = $file_name;
+        $password     = $_POST["password"];
+        $con_password = $_POST["con_password"];
+
+        Session::set('fullname', $fullname);
+        Session::set('username', $username);
+        Session::set('password', $password);
+        Session::set('con_password', $con_password);
+
+        if ($fullname != '' && $username != '' && $password != '' && $con_password != '') {
+          if ($password == $con_password) {
+            $user = new User();
+
+            if ( count($user->insert($fullname, $username, $avata, $password ) > 0)) {
+              header("Location: /users/login");
+            }
+            else {
+              Session::set("error_register", "Register has prolem");
+              header("Location: /users/register");
+            }
+          }
+          else {
+            Session::set("error_dublicate_password", "Can password error not duplicate");
+            header("Location: /users/register");
+          }
         }
         else {
-          echo "failture";
+          Session::set("error_fullname", "You not yet enter full name");
+          Session::set("error_username", "You not yet enter user name");
+          Session::set("error_password", "You not yet enter password name");
+          header("Location: /users/register");
         }
       }
     }
@@ -68,18 +89,21 @@ class UsersController extends Controller
       $user = new User();
       $login = $user->login($username, $password);
       if (isset($_POST["login"])) {
-        if (empty($username) && empty($password)) {
+        if (!empty($username) || !empty($password)) {
           if ($login) {
               Session::set('user_name', $username);
               header("Location: /");
           }
           else {
-              header("Location: /users/login");
+            Session::set('errors_user', 'Errorr user name OR password');
+            header("Location: /users/login");
           }
         }
         else {
-          SESSION::set('error_username', 'enter value');
-          SESSION::set('error_password', 'enter value');
+          Session::set('username', $username);
+          Session::set('password', $password);
+          SESSION::set('enter_error_username', 'Enter user name');
+          SESSION::set('enter_error_password', 'Enter password');
           header("Location: /users/login");
         }
       }

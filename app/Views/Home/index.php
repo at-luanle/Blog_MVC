@@ -1,4 +1,9 @@
 <?php use App\Core\Session;?>
+<?php
+  if(!isset($_GET["page"])){
+    $_GET["page"] = 1;
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,15 +17,17 @@
   <title>Clean Blog - Start Bootstrap Theme</title>
 
   <!-- Bootstrap core CSS -->
-  <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom fonts for this template -->
-  <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+  <link href="/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
   <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
 
   <!-- Custom styles for this template -->
-  <link href="css/clean-blog.min.css" rel="stylesheet">
+  <link href="/css/clean-blog.min.css" rel="stylesheet">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/img/favicons/favicon-32x32.png">
 
 </head>
 
@@ -40,14 +47,25 @@
             <a class="nav-link" href="#">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="users/register">Register</a>
+            <?php  if (!Session::get('user_name')) { ?>
+                <a class="nav-link" href="/users/register">Register</a>
+            <?php }?>
+                <a class="nav-link" href="/users/register" style="display:none">Register</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/users/login">Login</a>
+            <?php  if (!Session::get('user_name')) { ?>
+                <a class="nav-link" href="/users/login">Login</a>
+            <?php }?>
+                <a class="nav-link" href="/users/login" style="display:none">Login</a>
           </li>
           <li class="nav-item">
             <?php  if (Session::get('user_name')) { ?>
                 <a class="nav-link" href="/posts/add_post">Add Post</a>
+            <?php }?>
+                <a class="nav-link" href="/posts/add_post" style="display:none">Add Post</a>
+          </li>
+          <li class="nav-item">
+            <?php  if (Session::get('user_name')) { ?>
                 <a class="nav-link" href="/users/logout">Logout</a>
                       <?php }?>
                 <a class="nav-link" href="/posts/add_post" style="display:none">Add Post</a>
@@ -106,13 +124,9 @@
         <?php endforeach ?>
         <hr>
 
-        <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="#">Older Posts &rarr;</a>
-        </div>
         <div class="pagination">
-          <?php for ($i = 1; $i < $amount_page; $i++):?>
-            <p><a href="home/index?page=<?php echo $i;?>">Page <?php echo $i.' '; ?></a></p>
+          <?php for ($i = 1; $i <= $amount_page; $i++):?>
+            <p><a href="/home/index?page=<?php echo $i;?>">   Page  <?php echo $i; ?> </a></p>
           <?php endfor?>
         </div>
       </div>
@@ -159,8 +173,8 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/vendor/jquery/jquery.min.js"></script>
+  <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom scripts for this template -->
   <script src="js/clean-blog.min.js"></script>

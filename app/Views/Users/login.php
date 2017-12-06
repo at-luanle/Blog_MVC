@@ -23,19 +23,35 @@
                      <div class="form-group">
                         <label class="control-label col-xs-2">User Name</label>
                         <div class="col-xs-10">
-                            <input type="text" name="username" class="form-control" placeholder="User Name">
+                            <input type="text" name="username" class="form-control" placeholder="User Name"
+                             value="<?php if (Session::get("username") != "") { echo Session::get("username"); } else { echo "";}?>">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-xs-2">Password</label>
                         <div class="col-xs-10">
-                            <input type="password" name="password" class="form-control" placeholder="Password">
+                            <input type="password" name="password" class="form-control" placeholder="Password"
+                            value="<?php if (Session::get("password") != "") {echo Session::get("password");} else {echo "";}?>"
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-xs-offset-2 col-xs-10">
                             <button type="submit" name="login" class="btn btn-primary">Login</button>
-                            <?php echo (Session::get('error_username')); ?>
+                            <?php if(Session::get("username") == '' || Session::get("password") == '') {
+                                    echo "<span>".Session::get("enter_error_username")."</span>";
+                                    echo "<span>".Session::get("enter_error_password")."</span>";
+                                  }
+                                  else {
+                                    echo "";
+                                  }
+                            ?>
+                            <span>
+                              <?php 
+                                echo Session::get('errors_user');
+                              ?>
+
+                            </span>
+                       </div>
                     </div>
                 </form>
             </div>

@@ -16,12 +16,13 @@ class Post extends Model
     $post = $stmt->fetch();
     return $post;
   }
-  public function load_page_pagination($from, $amount_one_page)
+  public function load_page_pagination($page, $amount_one_page)
   {
     //select page, display page has limit from to amount need dislpay
+    $from = ($page -1) * $amount_one_page;
     $sql  = "SELECT * FROM $this->table LIMIT $from, $amount_one_page";
     $stmt = static::$db->prepare($sql);
-    $stml->execute();
+    $stmt->execute();
 
     $posts = $stmt->fetchAll();
     return $posts;
