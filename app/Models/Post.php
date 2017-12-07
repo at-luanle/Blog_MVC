@@ -24,7 +24,8 @@ class Post extends Model
   {
     //select page, display page has limit from to amount need dislpay
     $from = ($page -1) * $amount_one_page;
-    $sql  = "SELECT * FROM $this->table ORDER BY date_create desc LIMIT $from, $amount_one_page " ;
+    $sql  = "SELECT *, users.username as username FROM $this->table join users on posts.user_id = users.id
+    ORDER BY date_create desc LIMIT $from, $amount_one_page " ;
     $stmt = static::$db->prepare($sql);
     $stmt->execute();
 

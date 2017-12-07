@@ -87,7 +87,7 @@
   </nav>
 
   <!-- Page Header -->
-  <header class="masthead" style="background-image: url('img/home-bg.jpg')">
+  <header class="masthead" style="background-image: url('/img/home-bg.jpg')">
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
@@ -118,7 +118,7 @@
             </p>
 
             <p class="post-meta">Posted by
-            <a href="#">Start Bootstrap</a>
+            <a href="#"><?php echo $post['username'];?></a>
             on <?php echo $post["date_create"];?></p>
           </div>
         <?php endforeach ?>
@@ -126,7 +126,7 @@
 
         <div class="pagination">
           <?php for ($i = 1; $i <= $amount_page; $i++):?>
-            <p><a href="/home/index?page=<?php echo $i;?>">   Page  <?php echo $i; ?> </a></p>
+            <p><a href="/home/index?page=<?php echo $i;?>" style="text-decoration:none"> Page  <?php if($i == $amount_page) { echo $i; } else { echo $i.'-';} ?> </a></p>
           <?php endfor?>
         </div>
       </div>
@@ -177,7 +177,7 @@
   <script src="/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Custom scripts for this template -->
-  <script src="js/clean-blog.min.js"></script>
+  <script src="/js/clean-blog.min.js"></script>
 </body>
 
 </html>
