@@ -28,11 +28,8 @@
                         <div class="col-xs-10">
                             <input type="text" name="fullname" class="form-control" placeholder="Full Name"
                             value="
-                              <?php if (Session::get('fullname')) {
+                              <?php if (!isset($_POST['fullname'])) {
                                   echo Session::get('fullname');
-                                }
-                                else {
-                                  echo "";
                                 }
                               ?>">
                         </div>
@@ -49,14 +46,10 @@
                         <div class="col-xs-10">
                             <input type="text" name="username" class="form-control" placeholder="User Name"
                             value="
-                              <?php if (Session::get('username')) {
+                              <?php if (!isset($_POST['username'])) {
                                   echo Session::get('username');
                                 }
-                                else {
-                                  echo "";
-                                }
                               ?>">
-
                         </div>
                         <?php if (Session::get('username') != '') {
                           echo "";
