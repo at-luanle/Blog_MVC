@@ -17,10 +17,18 @@ class PostsController extends Controller
   	return view('Post.add_post', $data);
   }
 
+  //display detail Post
+  public function detail()
+  {
+    $id           = $_GET["id"];
+    $post         = new Post();
+    $data['post'] = $post->find_by_id($id);
+    return view('Post.detail', $data);
+  }
+
   //add post
   public function add()
   {
-
     if ( isset ( $_POST["Save"]) ){
       $title       = $_POST["title"];
       $description = $_POST["description"];
@@ -51,4 +59,35 @@ class PostsController extends Controller
       }
     }
   }
+
+  //delete post by id and User
+  public function delete()
+  {
+    $id      = $_GET["id"];
+    $post    = new Post();
+    if ($post->delete($id)) {
+      header("Location: /");
+    } else {
+      Session::set('error_delete_post', 'Delete Failture a Post');
+      header("Location: /");
+    }
+  }
+
+  //display form edit post
+  public function edit()
+  {
+    $id           = $_GET["id"];
+    $post         = new Post();
+    $data['post'] = $post->find_by_id($id);
+    return view("Post.edit", $data);
+  }
+
+  //edit post
+  public function update()
+  {
+
+
+
+  }
+
 }
